@@ -1,15 +1,26 @@
-import React, { Fragment, SFC } from 'react';
+import React, { SFC } from 'react';
 import { render } from 'react-dom';
-import { boosts, Boost, BoostGroup, groups, byGroup } from './boost';
+import { Boost, groups, byGroup, BoostId } from './boost';
 import classNames from 'classnames';
+import styles from './styles.css';
 
-const Row: SFC<{ boost: Boost }> = ({ boost }) => {
+interface RowProps {
+  boost: Boost;
+  active: boolean;
+  onChange?: () => void;
+}
+
+const Row: SFC<RowProps> = ({ boost, active, onChange }) => {
   return (
-    <tr key={boost.id}>
+    <tr
+      key={boost.id}
+      className={classNames(styles.row, { [styles.active]: active })}
+      onClick={onChange}
+    >
       <td>
         <input
           type="checkbox"
-          checked={false}
+          checked={active}
           onChange={() => console.log('change', boost.id)}
         />
       </td>
@@ -26,9 +37,9 @@ const Row: SFC<{ boost: Boost }> = ({ boost }) => {
 
 const Group: SFC<{ boosts: Boost[]; odd: boolean }> = ({ boosts, odd }) => {
   return (
-    <tbody className={classNames({ ['pure-table-odd']: odd })}>
+    <tbody className={classNames({ [styles.odd]: odd })}>
       {boosts.map(boost => (
-        <Row boost={boost} key={boost.id} />
+        <Row boost={boost} key={boost.id} active={false} />
       ))}
     </tbody>
   );
