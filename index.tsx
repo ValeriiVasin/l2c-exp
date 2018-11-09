@@ -13,7 +13,9 @@ import { AppActions, toggleBoost } from './actions';
 interface RowProps {
   boost: Boost;
   active: boolean;
-  onChange: () => void;
+
+  // it was not working if try to not pass arguments here but use mergeProps() for that
+  onChange: (id: BoostId, value: boolean) => void;
 }
 
 const Row: SFC<RowProps> = ({ boost, active, onChange }) => {
@@ -21,10 +23,14 @@ const Row: SFC<RowProps> = ({ boost, active, onChange }) => {
     <tr
       key={boost.id}
       className={classNames(styles.row, { [styles.active]: active })}
-      onClick={onChange}
+      onClick={() => onChange(boost.id, !active)}
     >
       <td>
-        <input type="checkbox" checked={active} onChange={onChange} />
+        <input
+          type="checkbox"
+          checked={active}
+          onChange={() => onChange(boost.id, !active)}
+        />
       </td>
       <td>
         <img src={boost.image} />
@@ -73,33 +79,14 @@ const mapDispatchToProps = (dispatch: Dispatch<AppActions>): RowDispatchProps =>
     dispatch as Dispatch<AnyAction>
   );
 
-const mergeProps = (
-  stateProps: RowStateProps,
-  dispatchProps: RowDispatchProps,
-  ownProps: RowOwnProps
-): RowProps => {
-  const { onChange } = dispatchProps;
-  const { boost } = ownProps;
-
-  return {
-    ...stateProps,
-    ...ownProps,
-    onChange: () => {
-      onChange(boost.id, !stateProps.active);
-    }
-  };
-};
-
 const RowContainer = connect<
   RowStateProps,
   RowDispatchProps,
   RowOwnProps,
-  RowMergeProps,
   AppState
 >(
   mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
+  mapDispatchToProps
 )(Row);
 
 const Group: SFC<{ boosts: Boost[]; odd: boolean }> = ({ boosts, odd }) => {
