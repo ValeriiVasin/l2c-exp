@@ -1,7 +1,9 @@
-import { AppState } from './constants';
+import { AppState, BoostId } from './constants';
 
 import { Reducer } from 'redux';
-import { ActionType, Action, AppActions } from './actions';
+import { ActionType, AppActions } from './actions';
+import { Boost } from './boost';
+import { addBoost } from './helpers';
 
 const DEFAULT_STATE: AppState = {
   boosts: []
@@ -19,7 +21,7 @@ export const root: Reducer<AppState, AppActions> = (
       if (value) {
         return {
           ...state,
-          boosts: [...state.boosts, id]
+          boosts: addBoost(state.boosts, id)
         };
       }
 

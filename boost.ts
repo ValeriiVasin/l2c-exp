@@ -338,11 +338,11 @@ export const boosts: Boost[] = [
 
 export const groups = Object.keys(BoostGroup);
 
-interface GroopedBosts {
+interface BoostByGroup {
   [key: string]: Boost[];
 }
 
-export const byGroup: GroopedBosts = boosts.reduce(
+export const byGroup: BoostByGroup = boosts.reduce(
   (acc, boost) => {
     const group: BoostGroup = boost.group;
 
@@ -353,5 +353,17 @@ export const byGroup: GroopedBosts = boosts.reduce(
     acc[group] = [...acc[group], boost];
     return acc;
   },
-  {} as GroopedBosts
+  {} as BoostByGroup
+);
+
+interface BoostById {
+  [key: string]: Boost;
+}
+
+export const byId: BoostById = boosts.reduce(
+  (acc, boost) => {
+    acc[boost.id] = boost;
+    return acc;
+  },
+  {} as BoostById
 );
