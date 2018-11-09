@@ -280,7 +280,7 @@ export const boosts: Boost[] = [
     exp: 3,
     sp: 3,
     name: 'Благословение Света',
-    image: TDB_IMAGE,
+    image: 'https://l2central.info/c/images/3/30/Item_71007.jpg',
     id: BoostId.BlessingLight
   },
 

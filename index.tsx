@@ -1,93 +1,13 @@
 import React, { SFC } from 'react';
 import { render } from 'react-dom';
-import { Boost, groups, byGroup } from './boost';
+import { Provider } from 'react-redux';
 import classNames from 'classnames';
+
+import { Boost, groups, byGroup } from './boost';
 import styles from './styles.css';
-import { Provider, connect } from 'react-redux';
 
 import { store } from './store';
-import { BoostId, AppState } from './constants';
-import { Dispatch, bindActionCreators, AnyAction } from 'redux';
-import { AppActions, toggleBoost } from './actions';
-
-interface RowProps {
-  boost: Boost;
-  active: boolean;
-
-  // it was not working if try to not pass arguments here but use mergeProps() for that
-  onChange: (id: BoostId, value: boolean) => void;
-}
-
-const Row: SFC<RowProps> = ({ boost, active, onChange }) => {
-  return (
-    <tr
-      key={boost.id}
-      className={classNames(styles.row, { [styles.active]: active })}
-      onClick={() => onChange(boost.id, !active)}
-    >
-      <td>
-        <input
-          type="checkbox"
-          checked={active}
-          onChange={() => onChange(boost.id, !active)}
-        />
-      </td>
-      <td>
-        <img src={boost.image} />
-      </td>
-      <td>{boost.name}</td>
-      <td>{`${boost.exp}%`}</td>
-      <td>{`${boost.sp}%`}</td>
-      <td>{boost.group}</td>
-    </tr>
-  );
-};
-
-interface RowOwnProps {
-  boost: Boost;
-}
-
-interface RowStateProps {
-  active: boolean;
-}
-
-interface RowDispatchProps {
-  onChange: (id: BoostId, value: boolean) => void;
-}
-
-interface RowMergeProps {
-  onChange: () => void;
-}
-
-const mapStateToProps = (
-  state: AppState,
-  ownProps: RowOwnProps
-): RowStateProps => {
-  const { boost } = ownProps;
-  const active = state.boosts.includes(boost.id);
-
-  return {
-    active
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch<AppActions>): RowDispatchProps =>
-  bindActionCreators(
-    {
-      onChange: toggleBoost
-    },
-    dispatch as Dispatch<AnyAction>
-  );
-
-const RowContainer = connect<
-  RowStateProps,
-  RowDispatchProps,
-  RowOwnProps,
-  AppState
->(
-  mapStateToProps,
-  mapDispatchToProps
-)(Row);
+import { RowContainer } from './containers/row/row';
 
 const Group: SFC<{ boosts: Boost[]; odd: boolean }> = ({ boosts, odd }) => {
   return (
@@ -99,7 +19,7 @@ const Group: SFC<{ boosts: Boost[]; odd: boolean }> = ({ boosts, odd }) => {
   );
 };
 
-const App = () => (
+const Table = () => (
   <table className="pure-table">
     <thead>
       <tr>
@@ -119,7 +39,7 @@ const App = () => (
 
 render(
   <Provider store={store}>
-    <App />
+    <Table />
   </Provider>,
   document.getElementById('app')
 );
