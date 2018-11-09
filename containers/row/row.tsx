@@ -54,10 +54,6 @@ interface RowDispatchProps {
   onChange: (id: BoostId, value: boolean) => void;
 }
 
-interface RowMergeProps {
-  onChange: () => void;
-}
-
 const mapStateToProps = (
   state: AppState,
   ownProps: RowOwnProps
