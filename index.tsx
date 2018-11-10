@@ -23,9 +23,16 @@ const Group: SFC<{ boosts: Boost[]; odd: boolean }> = ({ boosts, odd }) => {
 
 const Table = () => (
   <div>
-    <ExpInputsContainer />
+    <div className={styles.widgets}>
+      <div className={styles.widget}>
+        <ExpInputsContainer />
+      </div>
 
-    <PartyContainer />
+      <div className={styles.widget}>
+        <PartyContainer />
+      </div>
+    </div>
+
 
     <table className="pure-table">
       <thead>

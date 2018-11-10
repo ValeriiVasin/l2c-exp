@@ -3,7 +3,6 @@ import { bindActionCreators, Dispatch, AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { AppActions, setValue, toggleRawExpLock } from '../../actions';
 import { AppState } from '../../constants';
-import styles from './exp-inputs.css';
 import { formatNumber } from '../../helpers';
 
 interface ExpInputProps {
@@ -27,7 +26,7 @@ const ExpInputs: SFC<ExpInputProps & DispatchProps> = ({
   toggleRawExpLock
 }) => {
   return (
-    <div className={styles.root}>
+    <div>
       <form className="pure-form pure-form-stacked">
         <label htmlFor="value">Введите Опыт</label>
         <input
