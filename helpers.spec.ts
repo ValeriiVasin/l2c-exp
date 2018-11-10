@@ -65,12 +65,16 @@ describe('formatting number', () => {
     expect(formatNumber(10000)).toBe('10 000');
   });
 
+  it('truncates fractional part by default', () => {
+    expect(formatNumber(1000.22)).toBe('1 000');
+  });
+
   it('appends fractional part without formatting and using the dot as a separator', () => {
-    expect(formatNumber(1000.22)).toBe('1 000.22');
+    expect(formatNumber(1000.22, 2)).toBe('1 000.22');
   });
 
   it('rounds fractional part to 2 digits', () => {
-    expect(formatNumber(22.3333)).toBe('22.33');
+    expect(formatNumber(22.3333, 2)).toBe('22.33');
   });
 
   it('formats NaN as an empty', () => {

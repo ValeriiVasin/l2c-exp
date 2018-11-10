@@ -25,7 +25,7 @@ export const toNumber = (value: string): number => {
   );
 };
 
-export const formatNumber = (value: number): string => {
+export const formatNumber = (value: number, fractinalDigits = 0): string => {
   if (Number.isNaN(value)) {
     return '';
   }
@@ -34,7 +34,7 @@ export const formatNumber = (value: number): string => {
   const fractional = value - decimal;
 
   const fractionalString = fractional
-    ? `.${fractional.toFixed(2).slice(-2)}`
+    ? `.${fractional.toFixed(fractinalDigits).slice(-2)}`
     : '';
   const decimalString = String(decimal)
     .split('')
@@ -48,7 +48,7 @@ export const formatNumber = (value: number): string => {
     }, '')
     .trim();
 
-  return `${decimalString}${fractionalString}`;
+  return `${decimalString}${fractinalDigits ? fractionalString : ''}`;
 };
 
 export const boostPercentage = (ids: BoostId[]): number => {
