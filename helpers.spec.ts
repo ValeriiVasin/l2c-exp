@@ -1,17 +1,23 @@
-import { addBoost, toNumber, formatNumber } from './helpers';
+import {
+  addBoost,
+  toNumber,
+  formatNumber,
+  boostCoefficient,
+  boostPercentage
+} from './helpers';
 import { BoostId } from './constants';
 
 describe('add boost', () => {
   it('different groups', () => {
-    expect(addBoost([BoostId.FortuneOne], BoostId.Ragu)).toEqual([
-      BoostId.FortuneOne,
+    expect(addBoost([BoostId.ClanFortuneOne], BoostId.Ragu)).toEqual([
+      BoostId.ClanFortuneOne,
       BoostId.Ragu
     ]);
   });
 
   it('same group', () => {
-    expect(addBoost([BoostId.FortuneOne], BoostId.FortuneTwo)).toEqual([
-      BoostId.FortuneTwo
+    expect(addBoost([BoostId.ClanFortuneOne], BoostId.ClanFortuneTwo)).toEqual([
+      BoostId.ClanFortuneTwo
     ]);
   });
 });
@@ -69,5 +75,35 @@ describe('formatting number', () => {
 
   it('formats NaN as an empty', () => {
     expect(formatNumber(NaN)).toBe('');
+  });
+});
+
+describe('boost percentage', () => {
+  it('returns 0 for when no ids', () => {
+    expect(boostPercentage([])).toBe(0);
+  });
+
+  it('single boost item', () => {
+    expect(boostPercentage([BoostId.Ragu])).toBe(10);
+  });
+
+  it('few boost items', () => {
+    expect(boostPercentage([BoostId.Ragu, BoostId.ClanUnityFour])).toBe(20);
+  });
+});
+
+describe('boost coefficient', () => {
+  it('returns 1 for if no boosts provided', () => {
+    expect(boostCoefficient([])).toBe(1);
+  });
+
+  it('returns proper coefficient for single item', () => {
+    expect(boostCoefficient([BoostId.ClanFortuneThree])).toBe(1.1);
+  });
+
+  it('returns proper coefficient for few items', () => {
+    expect(
+      boostCoefficient([BoostId.ClanFortuneThree, BoostId.ClanUnityFour])
+    ).toBe(1.2);
   });
 });

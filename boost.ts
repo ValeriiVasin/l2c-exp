@@ -18,7 +18,7 @@ export const boosts: Boost[] = [
     sp: 0,
     name: 'Удача Клана - Ур.1',
     image: 'https://l2central.info/c/images/b/b5/Skill_392.jpg',
-    id: BoostId.FortuneOne
+    id: BoostId.ClanFortuneOne
   },
   {
     group: BoostGroup.A,
@@ -26,7 +26,7 @@ export const boosts: Boost[] = [
     sp: 0,
     name: 'Удача Клана - Ур.2',
     image: 'https://l2central.info/c/images/b/b5/Skill_392.jpg',
-    id: BoostId.FortuneTwo
+    id: BoostId.ClanFortuneTwo
   },
   {
     group: BoostGroup.A,
@@ -34,7 +34,7 @@ export const boosts: Boost[] = [
     sp: 0,
     name: 'Удача Клана - Ур.3',
     image: 'https://l2central.info/c/images/b/b5/Skill_392.jpg',
-    id: BoostId.FortuneThree
+    id: BoostId.ClanFortuneThree
   },
 
   {
@@ -43,7 +43,7 @@ export const boosts: Boost[] = [
     sp: 3,
     name: 'Единство Клана - Ур.1',
     image: 'https://l2central.info/c/images/2/2f/Skill_55168_1.jpg',
-    id: BoostId.UnityOne
+    id: BoostId.ClanUnityOne
   },
 
   {
@@ -52,7 +52,7 @@ export const boosts: Boost[] = [
     sp: 5,
     name: 'Единство Клана - Ур.2',
     image: 'https://l2central.info/c/images/e/e6/Skill_55169_1.jpg',
-    id: BoostId.UnityTwo
+    id: BoostId.ClanUnityTwo
   },
   {
     group: BoostGroup.B,
@@ -60,7 +60,7 @@ export const boosts: Boost[] = [
     sp: 7,
     name: 'Единство Клана - Ур.3',
     image: 'https://l2central.info/c/images/7/78/Skill_55170_1.jpg',
-    id: BoostId.UnityThree
+    id: BoostId.ClanUnityThree
   },
   {
     group: BoostGroup.B,
@@ -68,7 +68,7 @@ export const boosts: Boost[] = [
     sp: 10,
     name: 'Единство Клана - Ур.4',
     image: 'https://l2central.info/c/images/2/21/Skill_55171_1.jpg',
-    id: BoostId.UnityFour
+    id: BoostId.ClanUnityFour
   },
 
   {

@@ -19,13 +19,13 @@ export enum BoostGroup {
 }
 
 export enum BoostId {
-  FortuneOne = 'fortune1',
-  FortuneTwo = 'fortune2',
-  FortuneThree = 'fortune3',
-  UnityOne = 'unity1',
-  UnityTwo = 'unity2',
-  UnityThree = 'unity3',
-  UnityFour = 'unity4',
+  ClanFortuneOne = 'fortune1',
+  ClanFortuneTwo = 'fortune2',
+  ClanFortuneThree = 'fortune3',
+  ClanUnityOne = 'unity1',
+  ClanUnityTwo = 'unity2',
+  ClanUnityThree = 'unity3',
+  ClanUnityFour = 'unity4',
   RuneOne = 'rune100',
   RuneTwo = 'rune50',
   Iren = 'iren',

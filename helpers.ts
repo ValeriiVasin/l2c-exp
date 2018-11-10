@@ -50,3 +50,22 @@ export const formatNumber = (value: number): string => {
 
   return `${decimalString}${fractionalString}`;
 };
+
+export const boostPercentage = (ids: BoostId[]): number => {
+  if (ids.length === 0) {
+    return 0;
+  }
+
+  return ids.reduce((acc, id) => {
+    const boost = byId[id];
+    return acc + boost.exp;
+  }, 0);
+};
+
+export const boostCoefficient = (ids: BoostId[]): number => {
+  if (ids.length === 0) {
+    return 1;
+  }
+
+  return 1 + boostPercentage(ids) / 100;
+};
