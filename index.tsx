@@ -9,6 +9,7 @@ import styles from './styles.css';
 import { store } from './store';
 import { RowContainer } from './containers/row/row';
 import { ExpInputsContainer } from './containers/exp-inputs/exp-inputs';
+import { PartyContainer } from './containers/party/party';
 
 const Group: SFC<{ boosts: Boost[]; odd: boolean }> = ({ boosts, odd }) => {
   return (
@@ -23,6 +24,8 @@ const Group: SFC<{ boosts: Boost[]; odd: boolean }> = ({ boosts, odd }) => {
 const Table = () => (
   <div>
     <ExpInputsContainer />
+
+    <PartyContainer />
 
     <table className="pure-table">
       <thead>
