@@ -1,9 +1,8 @@
 import React, { SFC } from 'react';
 import { bindActionCreators, Dispatch, AnyAction } from 'redux';
 import { connect } from 'react-redux';
-import { AppActions, setValue } from '../../actions';
+import { AppActions, setValue, toggleRawExpLock } from '../../actions';
 import { AppState } from '../../constants';
-import classNames from 'classnames';
 import styles from './exp-inputs.css';
 import { formatNumber } from '../../helpers';
 
@@ -11,17 +10,21 @@ interface ExpInputProps {
   value: string;
   exp: string;
   rawExp: string;
+  rawExpLocked: boolean;
 }
 
 interface DispatchProps {
   setValue: (value: string) => void;
+  toggleRawExpLock: (value: boolean) => void;
 }
 
 const ExpInputs: SFC<ExpInputProps & DispatchProps> = ({
   value,
   exp,
   rawExp,
-  setValue
+  setValue,
+  rawExpLocked,
+  toggleRawExpLock
 }) => {
   return (
     <div className={styles.root}>
@@ -41,31 +44,38 @@ const ExpInputs: SFC<ExpInputProps & DispatchProps> = ({
         <input id="exp" type="text" readOnly value={exp} />
 
         <label htmlFor="raw-exp">Чистый Опыт</label>
-        <input
-          id="raw-exp"
-          type="text"
-          readOnly
-          value={rawExp}
-        />
+        <input id="raw-exp" type="text" readOnly value={rawExp} />
+
+        <label htmlFor="lock-raw-exp" className="pure-checkbox">
+          <input
+            id="lock-raw-exp"
+            type="checkbox"
+            checked={rawExpLocked}
+            onChange={() => toggleRawExpLock(!rawExpLocked)}
+          />{' '}
+          Зафиксировать чистый опыт
+        </label>
       </form>
     </div>
   );
 };
 
 const mapStateToProps = (state: AppState): ExpInputProps => {
-  const { value, exp, rawExp } = state.exp;
+  const { value, exp, rawExp, rawExpLocked } = state.exp;
 
   return {
     exp: formatNumber(exp),
     rawExp: formatNumber(rawExp),
-    value
+    value,
+    rawExpLocked
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<AppActions>): DispatchProps =>
   bindActionCreators(
     {
-      setValue
+      setValue,
+      toggleRawExpLock
     },
     dispatch as Dispatch<AnyAction>
   );

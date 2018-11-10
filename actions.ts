@@ -8,10 +8,11 @@ export interface AppAction<Payload, T = ActionType> extends Action<T> {
 
 export enum ActionType {
   ToggleBoost = 'ToggleBoost',
-  SetValue = 'SetValue'
+  SetValue = 'SetValue',
+  ToggleRawExpLock = 'ToggleRawExpLock'
 }
 
-export type AppActions = ToggleAction | SetValueAction;
+export type AppActions = ToggleAction | SetValueAction | ToggleRawExpLockAction;
 
 type ToggleAction = AppAction<
   { id: BoostId; value: boolean },
@@ -25,5 +26,14 @@ export const toggleBoost = (id: BoostId, value: boolean): ToggleAction => ({
 type SetValueAction = AppAction<{ value: string }, ActionType.SetValue>;
 export const setValue = (value: string): SetValueAction => ({
   type: ActionType.SetValue,
+  payload: { value }
+});
+
+type ToggleRawExpLockAction = AppAction<
+  { value: boolean },
+  ActionType.ToggleRawExpLock
+>;
+export const toggleRawExpLock = (value: boolean): ToggleRawExpLockAction => ({
+  type: ActionType.ToggleRawExpLock,
   payload: { value }
 });

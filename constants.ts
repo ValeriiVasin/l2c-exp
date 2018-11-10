@@ -65,5 +65,6 @@ export interface AppState {
     value: string;
     exp: number;
     rawExp: number;
+    rawExpLocked: boolean;
   };
 }

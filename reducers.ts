@@ -9,19 +9,21 @@ const DEFAULT_STATE: AppState = {
   exp: {
     value: '',
     exp: 0,
-    rawExp: 0
+    rawExp: 0,
+    rawExpLocked: false
   }
 };
 
 const withExpUpdate = (state: AppState): AppState => {
-  const exp = state.exp.exp;
-  const rawExp = exp / boostCoefficient(state.boosts);
+  const { exp, rawExp, rawExpLocked } = state.exp;
+  const coefficient = boostCoefficient(state.boosts);
 
   return {
     ...state,
     exp: {
       ...state.exp,
-      rawExp
+      rawExp: rawExpLocked ? rawExp : exp / coefficient,
+      exp: rawExpLocked ? rawExp * coefficient : exp
     }
   };
 };
@@ -55,12 +57,22 @@ export const root: Reducer<AppState, AppActions> = (
       return {
         ...state,
         exp: {
+          ...state.exp,
           exp,
           value,
           rawExp
         }
       };
     }
+
+    case ActionType.ToggleRawExpLock:
+      return {
+        ...state,
+        exp: {
+          ...state.exp,
+          rawExpLocked: action.payload.value
+        }
+      };
   }
   return state;
 };
