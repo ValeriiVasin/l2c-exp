@@ -8,6 +8,7 @@ import styles from './styles.css';
 
 import { store } from './store';
 import { RowContainer } from './containers/row/row';
+import { ExpInputsContainer } from './containers/exp-inputs/exp-inputs';
 
 const Group: SFC<{ boosts: Boost[]; odd: boolean }> = ({ boosts, odd }) => {
   return (
@@ -20,21 +21,25 @@ const Group: SFC<{ boosts: Boost[]; odd: boolean }> = ({ boosts, odd }) => {
 };
 
 const Table = () => (
-  <table className="pure-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>image</th>
-        <th>name</th>
-        <th>EXP</th>
-        <th>SP</th>
-        <th>Group</th>
-      </tr>
-    </thead>
-    {groups.map((group, index) => (
-      <Group key={group} boosts={byGroup[group]} odd={index % 2 === 1} />
-    ))}
-  </table>
+  <div>
+    <ExpInputsContainer />
+
+    <table className="pure-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>image</th>
+          <th>name</th>
+          <th>EXP</th>
+          <th>SP</th>
+          <th>Group</th>
+        </tr>
+      </thead>
+      {groups.map((group, index) => (
+        <Group key={group} boosts={byGroup[group]} odd={index % 2 === 1} />
+      ))}
+    </table>
+  </div>
 );
 
 render(

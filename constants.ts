@@ -61,4 +61,9 @@ export enum BoostId {
 
 export interface AppState {
   boosts: Array<BoostId>;
+  exp: {
+    value: string;
+    exp: number;
+    rawExp: number;
+  };
 }
