@@ -41,7 +41,12 @@ const ExpInputs: SFC<ExpInputProps & DispatchProps> = ({
         <input id="exp" type="text" readOnly value={exp} />
 
         <label htmlFor="raw-exp">Чистый Опыт</label>
-        <input id="raw-exp" type="text" readOnly value={rawExp} />
+        <input
+          id="raw-exp"
+          type="text"
+          readOnly
+          value={rawExp}
+        />
       </form>
     </div>
   );
@@ -52,7 +57,7 @@ const mapStateToProps = (state: AppState): ExpInputProps => {
 
   return {
     exp: formatNumber(exp),
-    rawExp: '0',
+    rawExp: formatNumber(rawExp),
     value
   };
 };

@@ -2,7 +2,7 @@ import { AppState, BoostId } from './constants';
 
 import { Reducer } from 'redux';
 import { ActionType, AppActions } from './actions';
-import { addBoost, toNumber } from './helpers';
+import { addBoost, toNumber, boostCoefficient } from './helpers';
 
 const DEFAULT_STATE: AppState = {
   boosts: [],
@@ -13,6 +13,19 @@ const DEFAULT_STATE: AppState = {
   }
 };
 
+const withExpUpdate = (state: AppState): AppState => {
+  const exp = state.exp.exp;
+  const rawExp = exp / boostCoefficient(state.boosts);
+
+  return {
+    ...state,
+    exp: {
+      ...state.exp,
+      rawExp
+    }
+  };
+};
+
 export const root: Reducer<AppState, AppActions> = (
   state: AppState = DEFAULT_STATE,
   action: AppActions
@@ -20,31 +33,31 @@ export const root: Reducer<AppState, AppActions> = (
   switch (action.type) {
     case ActionType.ToggleBoost: {
       const { id, value } = action.payload;
-      const boosts = state.boosts;
 
       if (value) {
-        return {
+        return withExpUpdate({
           ...state,
           boosts: addBoost(state.boosts, id)
-        };
+        });
       }
 
-      return {
+      return withExpUpdate({
         ...state,
-        boosts: boosts.filter(boost => boost !== id)
-      };
+        boosts: state.boosts.filter(boost => boost !== id)
+      });
     }
 
     case ActionType.SetValue: {
       const { value } = action.payload;
       const exp = toNumber(value);
+      const rawExp = exp / boostCoefficient(state.boosts);
 
       return {
         ...state,
         exp: {
-          ...state.exp,
           exp,
-          value
+          value,
+          rawExp
         }
       };
     }
