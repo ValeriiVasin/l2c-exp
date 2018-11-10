@@ -14,6 +14,31 @@ interface PartyState {
   targetPartyMembers: number;
 }
 
+interface PartyMembersSelectProps {
+  amount: number;
+  onChange: (amount: number) => void;
+}
+
+const PartyMembersSelect: SFC<PartyMembersSelectProps> = ({
+  amount,
+  onChange
+}) => (
+  <select
+    value={amount}
+    onChange={event => onChange(Number(event.target.value))}
+  >
+    <option value="1">1 игрок</option>
+    <option value="2">2 игрока</option>
+    <option value="3">3 игрока</option>
+    <option value="4">4 игрока</option>
+    <option value="5">5 игроков</option>
+    <option value="6">6 игроков</option>
+    <option value="7">7 игроков</option>
+    <option value="8">8 игроков</option>
+    <option value="9">9 игроков</option>
+  </select>
+);
+
 class Party extends Component<PartyProps, PartyState> {
   state: PartyState = {
     partyMembers: 1,
@@ -46,21 +71,10 @@ class Party extends Component<PartyProps, PartyState> {
           <tbody>
             <tr>
               <td>
-                <select
-                  id="party-members"
-                  value={this.state.partyMembers}
-                  onChange={this.onPartyMembersChange}
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                </select>
+                <PartyMembersSelect
+                  amount={this.state.partyMembers}
+                  onChange={amount => this.setState({ partyMembers: amount })}
+                />
               </td>
               <td>TBD</td>
             </tr>
@@ -77,21 +91,12 @@ class Party extends Component<PartyProps, PartyState> {
           <tbody>
             <tr>
               <td>
-                <select
-                  id="target-party-members"
-                  value={this.state.targetPartyMembers}
-                  onChange={this.onTargetPartyMembersChange}
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                </select>
+                <PartyMembersSelect
+                  amount={this.state.targetPartyMembers}
+                  onChange={amount =>
+                    this.setState({ targetPartyMembers: amount })
+                  }
+                />
               </td>
               <td>TBD</td>
             </tr>
