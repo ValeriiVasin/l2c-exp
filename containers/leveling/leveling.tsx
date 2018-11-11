@@ -25,6 +25,10 @@ export class LevelingContainer extends Component<{}, LevelingState> {
       return;
     }
 
+    if (to > 85) {
+      return;
+    }
+
     return (
       <p>
         <b>{formatNumber(getExp({ from, to }))} EXP</b>
@@ -34,23 +38,25 @@ export class LevelingContainer extends Component<{}, LevelingState> {
 
   render() {
     return (
-      <form className="pure-form pure-form-stacked">
+      <form className="pure-form">
         <legend>Прокачка уровня</legend>
 
-        <label htmlFor="from">От</label>
+        {/* <label htmlFor="from">От</label> */}
         <input
           id="from"
           type="text"
+          size={5}
           value={this.state.from}
           onChange={event => this.setState({ from: event.target.value })}
-          placeholder="1-85"
+          placeholder="от"
         />
-
-        <label htmlFor="to">До</label>
+        {' - '}
+        {/* <label htmlFor="to">До</label> */}
         <input
           id="to"
           type="text"
-          placeholder="1-85"
+          size={5}
+          placeholder="до"
           value={this.state.to}
           onChange={event => this.setState({ to: event.target.value })}
         />
