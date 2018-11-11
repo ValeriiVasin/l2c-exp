@@ -78,21 +78,21 @@ export const partyToMemberExp = ({
 export const convertPartyExp = (
   exp: number,
   {
-    from,
-    fromPenalty,
-    to,
-    toPenalty
-  }: { from: number; fromPenalty: number; to: number; toPenalty: number }
+    membersFrom,
+    penaltyFrom,
+    membersTo,
+    penaltyTo
+  }: { membersFrom: number; penaltyFrom: number; membersTo: number; penaltyTo: number }
 ) => {
-  if (from === to && fromPenalty === toPenalty) {
+  if (membersFrom === membersTo && penaltyFrom === penaltyTo) {
     return exp;
   }
 
   const partyExp = memberToPartyExp({
     exp,
-    members: from,
-    penalty: fromPenalty
+    members: membersFrom,
+    penalty: penaltyFrom
   });
 
-  return partyToMemberExp({ exp: partyExp, members: to, penalty: toPenalty });
+  return partyToMemberExp({ exp: partyExp, members: membersTo, penalty: penaltyTo });
 };

@@ -47,22 +47,22 @@ describe('calculate member exp based on party exp', () => {
 describe('party exp', () => {
   it('does not change if amount of members does not change (no penalties)', () => {
     expect(
-      convertPartyExp(1000, { from: 1, fromPenalty: 0, to: 1, toPenalty: 0 })
+      convertPartyExp(1000, { membersFrom: 1, penaltyFrom: 0, membersTo: 1, penaltyTo: 0 })
     ).toBe(1000);
   });
 
   it('calculates exp for different party members amount properly (no penalties)', () => {
     expect(
-      convertPartyExp(1600, { from: 2, fromPenalty: 0, to: 1, toPenalty: 0 })
+      convertPartyExp(1600, { membersFrom: 2, penaltyFrom: 0, membersTo: 1, penaltyTo: 0 })
     ).toBe(2000);
     expect(
-      convertPartyExp(1600, { from: 2, fromPenalty: 0, to: 4, toPenalty: 0 })
+      convertPartyExp(1600, { membersFrom: 2, penaltyFrom: 0, membersTo: 4, penaltyTo: 0 })
     ).toBe(850);
   });
 
   it('calculates exp correctly for few-member parties with penalties', () => {
     expect(
-      convertPartyExp(10000, { from: 2, fromPenalty: 9, to: 3, toPenalty: 4 })
+      convertPartyExp(10000, { membersFrom: 2, penaltyFrom: 9, membersTo: 3, penaltyTo: 4 })
     ).toBe(8021);
   });
 });

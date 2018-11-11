@@ -10,21 +10,23 @@ interface PartyProps {
 }
 
 interface PartyState {
-  partyMembers: number;
-  targetPartyMembers: number;
+  membersFrom: number;
+  penaltyFrom: number;
+  membersTo: number;
+  penaltyTo: number;
 }
 
 interface PartyMembersSelectProps {
-  amount: number;
-  onChange: (amount: number) => void;
+  members: number;
+  onChange: (members: number) => void;
 }
 
 const PartyMembersSelect: SFC<PartyMembersSelectProps> = ({
-  amount,
+  members,
   onChange
 }) => (
   <select
-    value={amount}
+    value={members}
     onChange={event => onChange(Number(event.target.value))}
   >
     <option value="1">1 игрок</option>
@@ -39,28 +41,88 @@ const PartyMembersSelect: SFC<PartyMembersSelectProps> = ({
   </select>
 );
 
+interface PartyPenaltySelectProps {
+  penalty: number;
+  disabled?: boolean;
+  onChange: (penalty: number) => void;
+}
+const PartyPenaltySelect: SFC<PartyPenaltySelectProps> = ({
+  penalty,
+  disabled,
+  onChange
+}) => (
+  <select
+    value={penalty}
+    onChange={event => onChange(Number(event.target.value))}
+    disabled={disabled}
+  >
+    <option value="0">нет</option>
+    <option value="1">1 уровень</option>
+    <option value="2">2 уровня</option>
+    <option value="3">3 уровня</option>
+    <option value="4">4 уровня</option>
+    <option value="5">5 уровней</option>
+    <option value="6">6 уровней</option>
+    <option value="7">7 уровней</option>
+    <option value="8">8 уровней</option>
+    <option value="9">9 уровней</option>
+    <option value="10">10 уровней</option>
+    <option value="11">11 уровней</option>
+    <option value="12">12 уровней</option>
+    <option value="13">13 уровней</option>
+    <option value="14">14 уровней</option>
+  </select>
+);
+
 class Party extends Component<PartyProps, PartyState> {
   state: PartyState = {
-    partyMembers: 1,
-    targetPartyMembers: 2
+    membersFrom: 1,
+    membersTo: 2,
+    penaltyFrom: 0,
+    penaltyTo: 0
   };
 
-  onPartyMembersChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    this.setState({ partyMembers: Number(event.target.value) });
+  onMembersFromChange = (members: number) => {
+    this.setState({ membersFrom: members });
+    if (members === 1) {
+      this.setState({ penaltyFrom: 0 });
+    }
   };
 
-  onTargetPartyMembersChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    this.setState({ targetPartyMembers: Number(event.target.value) });
+  onPenaltyFromChange = (penalty: number) => {
+    this.setState({ penaltyFrom: penalty });
+  };
+
+  onMembersToChange = (members: number) => {
+    this.setState({ membersTo: members });
+    if (members === 1) {
+      this.setState({ penaltyTo: 0 });
+    }
+  };
+
+  onPenaltyToChange = (penalty: number) => {
+    this.setState({ penaltyTo: penalty });
+  };
+
+  renderExp = () => {
+    return formatNumber(
+      convertPartyExp(this.props.rawExp, {
+        membersFrom: this.state.membersFrom,
+        membersTo: this.state.membersTo,
+        penaltyFrom: this.state.penaltyFrom,
+        penaltyTo: this.state.penaltyTo
+      }) * this.props.boostCoefficient
+    );
   };
 
   render() {
     return (
       <form className="pure-form pure-form-stacked">
-        <table className="pure-table">
+        <table className="pure-table pure-table-horizontal">
           <thead>
             <tr>
-              <th title="количество человек в пати при замере">пати</th>
-              <th>штраф</th>
+              <th>игроков в пати</th>
+              <th>разница в уровнях</th>
             </tr>
           </thead>
           <thead>
@@ -72,11 +134,17 @@ class Party extends Component<PartyProps, PartyState> {
             <tr>
               <td>
                 <PartyMembersSelect
-                  amount={this.state.partyMembers}
-                  onChange={amount => this.setState({ partyMembers: amount })}
+                  members={this.state.membersFrom}
+                  onChange={this.onMembersFromChange}
                 />
               </td>
-              <td>TBD</td>
+              <td>
+                <PartyPenaltySelect
+                  penalty={this.state.penaltyFrom}
+                  disabled={this.state.membersFrom === 1}
+                  onChange={this.onPenaltyFromChange}
+                />
+              </td>
             </tr>
           </tbody>
 
@@ -92,13 +160,17 @@ class Party extends Component<PartyProps, PartyState> {
             <tr>
               <td>
                 <PartyMembersSelect
-                  amount={this.state.targetPartyMembers}
-                  onChange={amount =>
-                    this.setState({ targetPartyMembers: amount })
-                  }
+                  members={this.state.membersTo}
+                  onChange={amount => this.setState({ membersTo: amount })}
                 />
               </td>
-              <td>TBD</td>
+              <td>
+                <PartyPenaltySelect
+                  penalty={this.state.penaltyTo}
+                  disabled={this.state.membersTo === 1}
+                  onChange={this.onPenaltyToChange}
+                />
+              </td>
             </tr>
           </tbody>
 
@@ -109,16 +181,7 @@ class Party extends Component<PartyProps, PartyState> {
           </thead>
           <tbody>
             <tr>
-              <td colSpan={2}>
-                {formatNumber(
-                  convertPartyExp(this.props.rawExp, {
-                    from: this.state.partyMembers,
-                    to: this.state.targetPartyMembers,
-                    fromPenalty: 0,
-                    toPenalty: 0
-                  }) * this.props.boostCoefficient
-                )}
-              </td>
+              <td colSpan={2}>{this.renderExp()}</td>
             </tr>
           </tbody>
         </table>
