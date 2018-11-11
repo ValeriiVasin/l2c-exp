@@ -41,7 +41,6 @@ export class LevelingContainer extends Component<{}, LevelingState> {
       <form className="pure-form">
         <legend>Прокачка уровня</legend>
 
-        {/* <label htmlFor="from">От</label> */}
         <input
           id="from"
           type="text"
@@ -51,7 +50,6 @@ export class LevelingContainer extends Component<{}, LevelingState> {
           placeholder="от"
         />
         {' - '}
-        {/* <label htmlFor="to">До</label> */}
         <input
           id="to"
           type="text"
