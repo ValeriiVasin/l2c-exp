@@ -120,7 +120,10 @@ export class Leveling extends Component<LevelingProps, LevelingState> {
           </label>
           {this.state.savedExpChecked && (
             <div>
-              <InputNumber onChange={savedExp => this.setState({ savedExp })} />
+              <InputNumber
+                onChange={savedExp => this.setState({ savedExp })}
+                autoFocus
+              />
               <span className="pure-form-message">Например, 37kk</span>
               {this.renderExp({ scrolls: true })}
             </div>

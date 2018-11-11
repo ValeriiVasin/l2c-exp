@@ -5,6 +5,7 @@ interface InputNumberProps {
   initialValue?: number;
   size?: number;
   placeholder?: string;
+  autoFocus?: boolean;
   onChange: (value: number) => void;
 }
 
@@ -42,6 +43,7 @@ export class InputNumber extends Component<InputNumberProps, InputNumberState> {
         placeholder={this.props.placeholder}
         value={this.state.value}
         onChange={this.onInputValueChange}
+        autoFocus={this.props.autoFocus}
       />
     );
   }
