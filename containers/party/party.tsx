@@ -2,7 +2,7 @@ import React, { SFC, Component, ChangeEvent } from 'react';
 import { AppState } from '../../constants';
 import { boostCoefficient, formatNumber } from '../../helpers';
 import { connect } from 'react-redux';
-import { partyExp } from './helpers';
+import { convertPartyExp } from './helpers';
 
 interface PartyProps {
   rawExp: number;
@@ -111,9 +111,11 @@ class Party extends Component<PartyProps, PartyState> {
             <tr>
               <td colSpan={2}>
                 {formatNumber(
-                  partyExp(this.props.rawExp, {
+                  convertPartyExp(this.props.rawExp, {
                     from: this.state.partyMembers,
-                    to: this.state.targetPartyMembers
+                    to: this.state.targetPartyMembers,
+                    fromPenalty: 0,
+                    toPenalty: 0
                   }) * this.props.boostCoefficient
                 )}
               </td>
