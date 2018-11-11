@@ -81,7 +81,7 @@ export class Leveling extends Component<LevelingProps, LevelingState> {
   renderTime = () => {
     const neededExp = this.getNeededExp();
 
-    if (!neededExp) {
+    if (!neededExp || !this.props.exp) {
       return;
     }
 
