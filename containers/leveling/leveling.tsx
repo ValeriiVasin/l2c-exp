@@ -1,37 +1,79 @@
-import React, { Component } from 'react';
+import React, { Component, ChangeEvent } from 'react';
 import { toNumber, formatNumber } from '../../helpers';
 import { getExp } from './helpers';
+import { AppState } from '../../constants';
+import { connect } from 'react-redux';
+import { Time } from './time';
 
 interface LevelingState {
-  from: string;
-  to: string;
+  fromValue: string;
+  from: number;
+  toValue: string;
+  to: number;
 }
 
-export class LevelingContainer extends Component<{}, LevelingState> {
+interface LevelingProps {
+  exp: number;
+}
+
+const MAX_LEVEL = 85;
+
+export class Leveling extends Component<{}, LevelingState> {
   state: LevelingState = {
-    from: '',
-    to: ''
+    fromValue: '',
+    from: 0,
+    toValue: '',
+    to: 0
   };
 
-  renderExp = () => {
-    const from = toNumber(this.state.from);
-    const to = toNumber(this.state.to);
+  onFromValueChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    this.setState({ fromValue: value });
 
-    if (!to || !from) {
-      return;
+    const from = toNumber(value);
+    if (from) {
+      this.setState({ from });
+    }
+  };
+
+  onToValueChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    this.setState({ toValue: value });
+
+    const to = toNumber(value);
+    if (to) {
+      this.setState({ to });
+    }
+  };
+
+  getNeededExp = (): number => {
+    const { from, to } = this.state;
+
+    if (from === 0 || to === 0) {
+      return 0;
     }
 
     if (from > to) {
-      return;
+      return 0;
     }
 
-    if (to > 85) {
+    if (to > MAX_LEVEL) {
+      return 0;
+    }
+
+    return getExp({ from, to });
+  };
+
+  renderExp = () => {
+    const neededExp = this.getNeededExp();
+
+    if (!neededExp) {
       return;
     }
 
     return (
       <p>
-        <b>{formatNumber(getExp({ from, to }))} EXP</b>
+        <b>{formatNumber(neededExp)} EXP</b>
       </p>
     );
   };
@@ -45,8 +87,8 @@ export class LevelingContainer extends Component<{}, LevelingState> {
           id="from"
           type="text"
           size={5}
-          value={this.state.from}
-          onChange={event => this.setState({ from: event.target.value })}
+          value={this.state.fromValue}
+          onChange={this.onFromValueChange}
           placeholder="от"
         />
         {' - '}
@@ -55,8 +97,8 @@ export class LevelingContainer extends Component<{}, LevelingState> {
           type="text"
           size={5}
           placeholder="до"
-          value={this.state.to}
-          onChange={event => this.setState({ to: event.target.value })}
+          value={this.state.toValue}
+          onChange={this.onToValueChange}
         />
 
         {this.renderExp()}
@@ -64,3 +106,13 @@ export class LevelingContainer extends Component<{}, LevelingState> {
     );
   }
 }
+
+const mapStateToProps = (state: AppState): LevelingProps => {
+  return {
+    exp: state.exp.exp
+  };
+};
+
+export const LevelingContainer = connect<LevelingProps, {}, {}, AppState>(
+  mapStateToProps
+)(Leveling);
