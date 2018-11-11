@@ -9,6 +9,8 @@ import { InputNumber } from '../input-number/input-number';
 interface LevelingState {
   from: number;
   to: number;
+  savedExp: number;
+  savedExpChecked: boolean;
 }
 
 interface LevelingProps {
@@ -20,10 +22,14 @@ const MAX_LEVEL = 85;
 export class Leveling extends Component<LevelingProps, LevelingState> {
   state: LevelingState = {
     from: 0,
-    to: 0
+    to: 0,
+    savedExpChecked: false,
+    savedExp: 0
   };
 
-  getNeededExp = (): number => {
+  getNeededExp = (
+    { scrolls }: { scrolls: boolean } = { scrolls: false }
+  ): number => {
     const { from, to } = this.state;
 
     if (from === 0 || to === 0) {
@@ -38,11 +44,15 @@ export class Leveling extends Component<LevelingProps, LevelingState> {
       return 0;
     }
 
+    if (scrolls && this.state.savedExpChecked && this.state.savedExp) {
+      return getExp({ from, to }) - this.state.savedExp;
+    }
+
     return getExp({ from, to });
   };
 
-  renderExp = () => {
-    const neededExp = this.getNeededExp();
+  renderExp = ({ scrolls }: { scrolls: boolean } = { scrolls: false }) => {
+    const neededExp = this.getNeededExp({ scrolls });
 
     if (!neededExp) {
       return;
@@ -62,7 +72,20 @@ export class Leveling extends Component<LevelingProps, LevelingState> {
       return;
     }
 
-    return <Time expNeeded={neededExp} expGetting={this.props.exp} />;
+    const savedExp = this.state.savedExpChecked ? this.state.savedExp : 0;
+
+    return (
+      <Time expNeeded={neededExp - savedExp} expGetting={this.props.exp} />
+    );
+  };
+
+  onSavedExpCheckboxChange = () => {
+    const savedExpChecked = !this.state.savedExpChecked;
+    this.setState({ savedExpChecked });
+
+    if (!savedExpChecked) {
+      this.setState({ savedExp: 0 });
+    }
   };
 
   render() {
@@ -85,6 +108,24 @@ export class Leveling extends Component<LevelingProps, LevelingState> {
         />
 
         {this.renderExp()}
+
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={this.state.savedExpChecked}
+              onChange={this.onSavedExpCheckboxChange}
+            />{' '}
+            имеющийся эксп (свитки и т.п.)
+          </label>
+          {this.state.savedExpChecked && (
+            <div>
+              <InputNumber onChange={savedExp => this.setState({ savedExp })} />
+              <span className="pure-form-message">Например, 37kk</span>
+              {this.renderExp({ scrolls: true })}
+            </div>
+          )}
+        </div>
         {this.renderTime()}
       </form>
     );
