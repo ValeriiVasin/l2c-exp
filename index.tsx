@@ -10,6 +10,7 @@ import { store } from './store';
 import { RowContainer } from './containers/row/row';
 import { ExpInputsContainer } from './containers/exp-inputs/exp-inputs';
 import { PartyContainer } from './containers/party/party';
+import { LevelingContainer } from './containers/leveling/leveling';
 
 const Group: SFC<{ boosts: Boost[]; odd: boolean }> = ({ boosts, odd }) => {
   return (
@@ -30,6 +31,10 @@ const Table = () => (
 
       <div className={styles.widget}>
         <PartyContainer />
+      </div>
+
+      <div className={styles.widget}>
+        <LevelingContainer />
       </div>
     </div>
 
