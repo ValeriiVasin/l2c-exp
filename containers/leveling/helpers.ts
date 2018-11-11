@@ -111,3 +111,22 @@ function getExpValue(level: number): number {
 export function getExp({ from, to }: { from: number; to: number }): number {
   return getExpValue(to) - getExpValue(from);
 }
+
+export const formatTime = (minutes: number): string => {
+  if (minutes < 1) {
+    return 'меньше минуты';
+  }
+
+  const hours = Math.floor(minutes / 60);
+  const mins = Math.round(minutes % 60);
+
+  if (hours === 0) {
+    return `${mins}мин`;
+  }
+
+  if (mins === 0) {
+    return `${hours}ч`;
+  }
+
+  return `${hours}ч ${mins}мин`;
+};

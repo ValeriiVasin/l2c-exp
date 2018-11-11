@@ -18,7 +18,7 @@ interface LevelingProps {
 
 const MAX_LEVEL = 85;
 
-export class Leveling extends Component<{}, LevelingState> {
+export class Leveling extends Component<LevelingProps, LevelingState> {
   state: LevelingState = {
     fromValue: '',
     from: 0,
@@ -78,6 +78,16 @@ export class Leveling extends Component<{}, LevelingState> {
     );
   };
 
+  renderTime = () => {
+    const neededExp = this.getNeededExp();
+
+    if (!neededExp) {
+      return;
+    }
+
+    return <Time expNeeded={neededExp} expGetting={this.props.exp} />;
+  };
+
   render() {
     return (
       <form className="pure-form">
@@ -102,6 +112,7 @@ export class Leveling extends Component<{}, LevelingState> {
         />
 
         {this.renderExp()}
+        {this.renderTime()}
       </form>
     );
   }
