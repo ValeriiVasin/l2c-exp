@@ -11,6 +11,7 @@ import { RowContainer } from './containers/row/row';
 import { ExpInputsContainer } from './containers/exp-inputs/exp-inputs';
 import { PartyContainer } from './containers/party/party';
 import { LevelingContainer } from './containers/leveling/leveling';
+import { BoostContainer } from './containers/boost-list/boost-list';
 
 const Group: SFC<{ boosts: Boost[]; odd: boolean }> = ({ boosts, odd }) => {
   return (
@@ -38,22 +39,25 @@ const Table = () => (
       </div>
     </div>
 
+    <BoostContainer />
 
-    <table className="pure-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>image</th>
-          <th>name</th>
-          <th>EXP</th>
-          <th>SP</th>
-          <th>Group</th>
-        </tr>
-      </thead>
-      {groups.map((group, index) => (
-        <Group key={group} boosts={byGroup[group]} odd={index % 2 === 1} />
-      ))}
-    </table>
+    <div className={styles.expTable}>
+      <table className="pure-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>image</th>
+            <th>name</th>
+            <th>EXP</th>
+            <th>SP</th>
+            <th>Group</th>
+          </tr>
+        </thead>
+        {groups.map((group, index) => (
+          <Group key={group} boosts={byGroup[group]} odd={index % 2 === 1} />
+        ))}
+      </table>
+    </div>
   </div>
 );
 

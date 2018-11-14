@@ -23,6 +23,8 @@ export const toggleBoost = (id: BoostId, value: boolean): ToggleAction => ({
   payload: { id, value }
 });
 
+export const removeBoost = (id: BoostId): ToggleAction => toggleBoost(id, false);
+
 type SetValueAction = AppAction<{ value: string }, ActionType.SetValue>;
 export const setValue = (value: string): SetValueAction => ({
   type: ActionType.SetValue,

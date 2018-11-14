@@ -1,0 +1,53 @@
+.root {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.totalPercentage {
+  margin-top: 8px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.list {
+  display: inline-flex;
+  justify-content: left;
+  position: relative;
+}
+
+/* .list:before {
+  background-color: #4f473e;
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 10px;
+  height: 100%;
+  content: ''
+} */
+
+.item {
+  position: relative;
+  border: 1px solid #cbcbcb;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+}
+
+.image {
+  position: 'absolute';
+  width: 100%;
+}
+
+.percentage {
+  position: absolute;
+  bottom: -20px;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.hidden {
+  visibility: hidden;
+}
