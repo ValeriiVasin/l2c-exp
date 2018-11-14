@@ -1,7 +1,7 @@
 import { BoostId } from './constants';
-import { Action } from 'redux';
+import { Action, AnyAction } from 'redux';
 
-export interface AppAction<Payload, T = ActionType> extends Action<T> {
+export interface AppAction<Payload, T = ActionType> extends AnyAction {
   type: T;
   payload: Payload;
 }

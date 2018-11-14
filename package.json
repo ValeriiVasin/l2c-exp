@@ -13,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^23.3.9",
+    "@types/redux-storage-engine-jsurl": "^1.0.0",
     "autoprefixer": "^9.3.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.6.0",
@@ -27,11 +28,14 @@
     "@types/react-dom": "^16.0.9",
     "@types/react-redux": "^6.0.9",
     "@types/redux": "^3.6.0",
+    "@types/redux-storage": "^4.0.11",
     "classnames": "^2.2.6",
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
     "react-redux": "^5.1.0",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-storage": "^4.1.2",
+    "redux-storage-engine-jsurl": "^1.0.2"
   },
   "jest": {
     "transform": {
