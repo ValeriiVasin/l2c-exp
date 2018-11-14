@@ -32,7 +32,7 @@ const Row: SFC<RowProps> = ({ boost, active, onChange }) => {
         />
       </td>
       <td>
-        <img src={boost.image} />
+        <img width={32} src={boost.image} />
       </td>
       <td>{boost.name}</td>
       <td>{`${boost.exp}%`}</td>

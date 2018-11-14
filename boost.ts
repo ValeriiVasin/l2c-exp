@@ -11,13 +11,14 @@ export interface Boost {
 
 const TDB_IMAGE = 'https://via.placeholder.com/32x32';
 
+// https://4gameforum.com/threads/656919/
 export const boosts: Boost[] = [
   {
     group: BoostGroup.A,
     exp: 3,
     sp: 0,
     name: 'Удача Клана - Ур.1',
-    image: 'https://l2central.info/c/images/b/b5/Skill_392.jpg',
+    image: require('./images/clan-fortune.jpg'),
     id: BoostId.ClanFortuneOne
   },
   {
@@ -25,7 +26,7 @@ export const boosts: Boost[] = [
     exp: 6,
     sp: 0,
     name: 'Удача Клана - Ур.2',
-    image: 'https://l2central.info/c/images/b/b5/Skill_392.jpg',
+    image: require('./images/clan-fortune.jpg'),
     id: BoostId.ClanFortuneTwo
   },
   {
@@ -33,7 +34,7 @@ export const boosts: Boost[] = [
     exp: 10,
     sp: 0,
     name: 'Удача Клана - Ур.3',
-    image: 'https://l2central.info/c/images/b/b5/Skill_392.jpg',
+    image: require('./images/clan-fortune.jpg'),
     id: BoostId.ClanFortuneThree
   },
 
@@ -42,7 +43,7 @@ export const boosts: Boost[] = [
     exp: 3,
     sp: 3,
     name: 'Единство Клана - Ур.1',
-    image: 'https://l2central.info/c/images/2/2f/Skill_55168_1.jpg',
+    image: require('./images/clan-unity-1.jpg'),
     id: BoostId.ClanUnityOne
   },
 
@@ -51,7 +52,7 @@ export const boosts: Boost[] = [
     exp: 5,
     sp: 5,
     name: 'Единство Клана - Ур.2',
-    image: 'https://l2central.info/c/images/e/e6/Skill_55169_1.jpg',
+    image: require('./images/clan-unity-2.jpg'),
     id: BoostId.ClanUnityTwo
   },
   {
@@ -59,7 +60,7 @@ export const boosts: Boost[] = [
     exp: 7,
     sp: 7,
     name: 'Единство Клана - Ур.3',
-    image: 'https://l2central.info/c/images/7/78/Skill_55170_1.jpg',
+    image: require('./images/clan-unity-3.jpg'),
     id: BoostId.ClanUnityThree
   },
   {
@@ -67,7 +68,7 @@ export const boosts: Boost[] = [
     exp: 10,
     sp: 10,
     name: 'Единство Клана - Ур.4',
-    image: 'https://l2central.info/c/images/2/21/Skill_55171_1.jpg',
+    image: require('./images/clan-unity-4.jpg'),
     id: BoostId.ClanUnityFour
   },
 
@@ -76,7 +77,7 @@ export const boosts: Boost[] = [
     exp: 100,
     sp: 100,
     name: 'Руна Опыта - 100% (2 часа)',
-    image: 'https://l2central.info/c/images/1/1c/Item_70094.jpg',
+    image: require('./images/rune-one.jpg'),
     id: BoostId.RuneOne
   },
 
@@ -85,7 +86,7 @@ export const boosts: Boost[] = [
     exp: 50,
     sp: 50,
     name: 'Руна Опыта и SP 50%',
-    image: 'https://l2central.info/c/images/1/1c/Item_70094.jpg',
+    image: require('./images/rune-one.jpg'),
     id: BoostId.RuneTwo
   },
 
@@ -94,7 +95,7 @@ export const boosts: Boost[] = [
     exp: 50,
     sp: 50,
     name: 'Песочные Часы Ирен',
-    image: 'https://l2central.info/c/images/4/49/Item_70263.jpg',
+    image: require('./images/iren.jpg'),
     id: BoostId.Iren
   },
 
@@ -103,7 +104,7 @@ export const boosts: Boost[] = [
     exp: 10,
     sp: 10,
     name: 'Рыбное Рагу - Благодарность Гильдии',
-    image: 'https://l2central.info/c/images/c/c7/Item_49501.jpg',
+    image: require('./images/ragu.jpg'),
     id: BoostId.Ragu
   },
   {
@@ -111,7 +112,7 @@ export const boosts: Boost[] = [
     exp: 100,
     sp: 100,
     name: 'Счастливый Мяч Данди',
-    image: 'http://l2on.net//img/icons/g_ev_homerunball.png',
+    image: require('./images/dandy.jpeg'),
     id: BoostId.Dandy
   },
 
@@ -120,7 +121,7 @@ export const boosts: Boost[] = [
     exp: 20,
     sp: 20,
     name: 'Благословение Кота-Ангела / Энергия Кота-Ангела',
-    image: 'https://l2central.info/c/images/1/12/Item_35669.jpg',
+    image: require('./images/cat.jpg'),
     id: BoostId.Cat
   },
   {
@@ -128,7 +129,7 @@ export const boosts: Boost[] = [
     exp: 30,
     sp: 30,
     name: 'Свиток Благословения Сторожевой Башни',
-    image: 'https://l2central.info/c/images/0/09/Item_49765.jpg',
+    image: require('./images/tower.jpg'),
     id: BoostId.Tower
   },
   {
@@ -136,7 +137,7 @@ export const boosts: Boost[] = [
     exp: 30,
     sp: 30,
     name: 'Благословение Матрешки',
-    image: TDB_IMAGE,
+    image: require('./images/matryoshka.jpeg'),
     id: BoostId.Matryoshka
   },
 
@@ -145,7 +146,7 @@ export const boosts: Boost[] = [
     exp: 30,
     sp: 30,
     name: 'Свиток Опыта/SP - Обычный',
-    image: 'https://l2central.info/c/images/1/1a/Item_29648.jpg',
+    image: require('./images/scroll.jpg'),
     id: BoostId.Scroll
   },
   {
@@ -153,7 +154,7 @@ export const boosts: Boost[] = [
     exp: 40,
     sp: 40,
     name: 'Свиток Опыта/SP - Среднее Качество',
-    image: 'https://l2central.info/c/images/b/bc/Item_29649.jpg',
+    image: require('./images/scroll-medium.jpg'),
     id: BoostId.ScrollMedium
   },
   {
@@ -161,7 +162,7 @@ export const boosts: Boost[] = [
     exp: 100,
     sp: 100,
     name: 'Свиток Опыта/SP - Высокое Качество',
-    image: 'https://l2central.info/c/images/8/86/Item_29650.jpg',
+    image: require('./images/scroll-high.jpg'),
     id: BoostId.ScrollHigh
   },
   {
@@ -169,7 +170,7 @@ export const boosts: Boost[] = [
     exp: 35,
     sp: 35,
     name: 'Свиток Опыта/SP Замка - Обычный',
-    image: 'https://l2central.info/c/images/b/b4/Item_29669.jpg',
+    image: require('./images/scroll-castle.jpg'),
     id: BoostId.ScrollCastle
   },
   {
@@ -177,7 +178,7 @@ export const boosts: Boost[] = [
     exp: 45,
     sp: 45,
     name: 'Свиток Опыта/SP Замка - Среднего качества',
-    image: 'https://l2central.info/c/images/f/f2/Item_29670.jpg',
+    image: require('./images/scroll-castle-medium.jpg'),
     id: BoostId.ScrollCastleMedium
   },
 
@@ -186,7 +187,7 @@ export const boosts: Boost[] = [
     exp: 20,
     sp: 20,
     name: 'Свиток Опыта/SP (Олимпиада)',
-    image: 'https://l2central.info/c/images/a/ac/Item_29565.jpg',
+    image: require('./images/scroll-oly.jpg'),
     id: BoostId.ScrollOly
   },
   {
@@ -194,7 +195,7 @@ export const boosts: Boost[] = [
     exp: 50,
     sp: 50,
     name: 'Свиток Призыва Шторма',
-    image: 'https://l2central.info/c/images/0/08/Item_49420.jpg',
+    image: require('./images/storm.jpg'),
     id: BoostId.Storm
   },
   {
@@ -202,7 +203,7 @@ export const boosts: Boost[] = [
     exp: 50,
     sp: 50,
     name: 'Свиток Призыва Сильного Шторма',
-    image: 'https://l2central.info/c/images/0/08/Item_49420.jpg',
+    image: require('./images/storm.jpg'),
     id: BoostId.StormHeavy
   },
   {
@@ -210,7 +211,7 @@ export const boosts: Boost[] = [
     exp: 50,
     sp: 50,
     name: 'Свиток Роста Спасителя',
-    image: TDB_IMAGE,
+    image: require('./images/savior.jpeg'),
     id: BoostId.Savior
   },
 
@@ -219,7 +220,7 @@ export const boosts: Boost[] = [
     exp: 20,
     sp: 20,
     name: 'Рисовый Пирожок Боевого Духа',
-    image: 'https://l2central.info/c/images/0/0f/Item_49080.jpg',
+    image: require('./images/pie.jpg'),
     id: BoostId.Pie
   },
   {
@@ -227,7 +228,7 @@ export const boosts: Boost[] = [
     exp: 30,
     sp: 30,
     name: 'Рисовый Пирожок Пылающего Боевого Духа',
-    image: 'https://l2central.info/c/images/2/23/Item_49081.jpg',
+    image: require('./images/pie-high.jpg'),
     id: BoostId.PieHigh
   },
 
@@ -236,7 +237,7 @@ export const boosts: Boost[] = [
     exp: 5,
     sp: 5,
     name: 'Особый Плод Пирата',
-    image: 'https://l2central.info/c/images/8/8f/Item_49518.jpg',
+    image: require('./images/pirate.jpg'),
     id: BoostId.Pirate
   },
   {
@@ -244,7 +245,7 @@ export const boosts: Boost[] = [
     exp: 10,
     sp: 10,
     name: 'Особый Плод Дракона',
-    image: 'https://l2central.info/c/images/1/1d/Item_70767.jpg',
+    image: require('./images/dragon.jpg'),
     id: BoostId.Dragon
   },
 
@@ -253,7 +254,7 @@ export const boosts: Boost[] = [
     exp: 10,
     sp: 10,
     name: 'Особый Плод Героя Олимпиады',
-    image: TDB_IMAGE,
+    image: require('./images/oly-hero.jpeg'),
     id: BoostId.OlyHero
   },
 
@@ -262,7 +263,7 @@ export const boosts: Boost[] = [
     exp: 50,
     sp: 50,
     name: 'Слезы Золотой Русалки',
-    image: 'https://l2central.info/c/images/6/66/Item_49585.jpg',
+    image: require('./images/tears.jpg'),
     id: BoostId.Tears
   },
 
@@ -271,7 +272,7 @@ export const boosts: Boost[] = [
     exp: 5,
     sp: 5,
     name: 'Всепоглощающая Сила Праздничной Шляпы',
-    image: 'https://l2central.info/c/images/1/1c/Item_70094.jpg',
+    image: require('./images/hat.jpg'),
     id: BoostId.Hat
   },
 
@@ -280,7 +281,7 @@ export const boosts: Boost[] = [
     exp: 3,
     sp: 3,
     name: 'Благословение Света',
-    image: 'https://l2central.info/c/images/3/30/Item_71007.jpg',
+    image: require('./images/bless-light.jpg'),
     id: BoostId.BlessingLight
   },
 
@@ -289,7 +290,7 @@ export const boosts: Boost[] = [
     exp: 10,
     sp: 10,
     name: 'Руна Опыта Завсегдатая',
-    image: 'https://l2central.info/c/images/1/1c/Item_70094.jpg',
+    image: require('./images/rune-frequenter.jpeg'),
     id: BoostId.RuneFrequenter
   },
 
@@ -298,7 +299,7 @@ export const boosts: Boost[] = [
     exp: 20,
     sp: 20,
     name: 'Амулет Опыта Героя',
-    image: 'https://l2central.info/c/images/5/53/Item_90836.jpg',
+    image: require('./images/amulet-hero.jpg'),
     id: BoostId.AmuletHero
   },
 
@@ -307,7 +308,7 @@ export const boosts: Boost[] = [
     exp: 5,
     sp: 5,
     name: 'Изобилие Клана - Ур.1',
-    image: 'https://l2central.info/c/images/7/7a/Skill_55887_2.jpg',
+    image: require('./images/clan-exuberance.jpg'),
     id: BoostId.ClanExuberanceOne
   },
   {
@@ -315,7 +316,7 @@ export const boosts: Boost[] = [
     exp: 8,
     sp: 8,
     name: 'Изобилие Клана - Ур.2',
-    image: 'https://l2central.info/c/images/7/7a/Skill_55887_2.jpg',
+    image: require('./images/clan-exuberance.jpg'),
     id: BoostId.ClanExuberanceTwo
   },
   {
@@ -323,7 +324,7 @@ export const boosts: Boost[] = [
     exp: 11,
     sp: 11,
     name: 'Изобилие Клана - Ур.3',
-    image: 'https://l2central.info/c/images/7/7a/Skill_55887_2.jpg',
+    image: require('./images/clan-exuberance.jpg'),
     id: BoostId.ClanExuberanceThree
   },
   {
@@ -331,7 +332,7 @@ export const boosts: Boost[] = [
     exp: 15,
     sp: 15,
     name: 'Изобилие Клана - Ур.4',
-    image: 'https://l2central.info/c/images/7/7a/Skill_55887_2.jpg',
+    image: require('./images/clan-exuberance.jpg'),
     id: BoostId.ClanExuberanceFour
   }
 ];
