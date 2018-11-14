@@ -1,5 +1,5 @@
 import { BoostId } from './constants';
-import { Action } from 'redux';
+import { Action, AnyAction } from 'redux';
 
 export interface AppAction<Payload, T = ActionType> extends Action<T> {
   type: T;
@@ -9,10 +9,13 @@ export interface AppAction<Payload, T = ActionType> extends Action<T> {
 export enum ActionType {
   ToggleBoost = 'ToggleBoost',
   SetValue = 'SetValue',
-  ToggleRawExpLock = 'ToggleRawExpLock'
+  ToggleRawExpLock = 'ToggleRawExpLock',
+  INIT = '@@INIT'
 }
 
-export type AppActions = ToggleAction | SetValueAction | ToggleRawExpLockAction;
+interface InitAction extends AnyAction {};
+
+export type AppActions = ToggleAction | SetValueAction | ToggleRawExpLockAction | InitAction;
 
 type ToggleAction = AppAction<
   { id: BoostId; value: boolean },
