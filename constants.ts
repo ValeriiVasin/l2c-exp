@@ -67,4 +67,6 @@ export interface AppState {
     rawExp: number;
     rawExpLocked: boolean;
   };
+
+  party: PartyState;
 }

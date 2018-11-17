@@ -3,17 +3,28 @@ import { AppState } from '../../constants';
 import { boostCoefficient, formatNumber } from '../../helpers';
 import { connect } from 'react-redux';
 import { convertPartyExp } from './helpers';
+import { bindActionCreators, Dispatch, AnyAction } from 'redux';
+import {
+  changeMembersTo,
+  changeMembersFrom,
+  changePenaltyFrom,
+  changePenaltyTo,
+  PartyActions
+} from '../../actions';
 
-interface PartyProps {
-  rawExp: number;
-  boostCoefficient: number;
-}
-
-interface PartyState {
-  membersFrom: number;
-  penaltyFrom: number;
+interface StateProps {
+  exp: string;
   membersTo: number;
   penaltyTo: number;
+  membersFrom: number;
+  penaltyFrom: number;
+}
+
+interface DispatchProps {
+  changeMembersFrom: typeof changeMembersFrom;
+  changeMembersTo: typeof changeMembersTo;
+  changePenaltyFrom: typeof changePenaltyFrom;
+  changePenaltyTo: typeof changePenaltyTo;
 }
 
 interface PartyMembersSelectProps {
@@ -74,45 +85,21 @@ const PartyPenaltySelect: SFC<PartyPenaltySelectProps> = ({
   </select>
 );
 
-class Party extends Component<PartyProps, PartyState> {
-  state: PartyState = {
-    membersFrom: 1,
-    membersTo: 2,
-    penaltyFrom: 0,
-    penaltyTo: 0
-  };
-
+class Party extends Component<StateProps & DispatchProps> {
   onMembersFromChange = (members: number) => {
-    this.setState({ membersFrom: members });
-    if (members === 1) {
-      this.setState({ penaltyFrom: 0 });
-    }
+    this.props.changeMembersFrom(members);
   };
 
   onPenaltyFromChange = (penalty: number) => {
-    this.setState({ penaltyFrom: penalty });
+    this.props.changePenaltyFrom(penalty);
   };
 
   onMembersToChange = (members: number) => {
-    this.setState({ membersTo: members });
-    if (members === 1) {
-      this.setState({ penaltyTo: 0 });
-    }
+    this.props.changeMembersTo(members);
   };
 
   onPenaltyToChange = (penalty: number) => {
-    this.setState({ penaltyTo: penalty });
-  };
-
-  renderExp = () => {
-    return formatNumber(
-      convertPartyExp(this.props.rawExp, {
-        membersFrom: this.state.membersFrom,
-        membersTo: this.state.membersTo,
-        penaltyFrom: this.state.penaltyFrom,
-        penaltyTo: this.state.penaltyTo
-      }) * this.props.boostCoefficient
-    );
+    this.props.changePenaltyTo(penalty);
   };
 
   render() {
@@ -134,14 +121,14 @@ class Party extends Component<PartyProps, PartyState> {
             <tr>
               <td>
                 <PartyMembersSelect
-                  members={this.state.membersFrom}
+                  members={this.props.membersFrom}
                   onChange={this.onMembersFromChange}
                 />
               </td>
               <td>
                 <PartyPenaltySelect
-                  penalty={this.state.penaltyFrom}
-                  disabled={this.state.membersFrom === 1}
+                  penalty={this.props.penaltyFrom}
+                  disabled={this.props.membersFrom === 1}
                   onChange={this.onPenaltyFromChange}
                 />
               </td>
@@ -160,14 +147,14 @@ class Party extends Component<PartyProps, PartyState> {
             <tr>
               <td>
                 <PartyMembersSelect
-                  members={this.state.membersTo}
-                  onChange={amount => this.setState({ membersTo: amount })}
+                  members={this.props.membersTo}
+                  onChange={members => this.onMembersToChange(members)}
                 />
               </td>
               <td>
                 <PartyPenaltySelect
-                  penalty={this.state.penaltyTo}
-                  disabled={this.state.membersTo === 1}
+                  penalty={this.props.penaltyTo}
+                  disabled={this.props.membersTo === 1}
                   onChange={this.onPenaltyToChange}
                 />
               </td>
@@ -181,7 +168,7 @@ class Party extends Component<PartyProps, PartyState> {
           </thead>
           <tbody>
             <tr>
-              <td colSpan={2}>{this.renderExp()}</td>
+              <td colSpan={2}>{this.props.exp}</td>
             </tr>
           </tbody>
         </table>
@@ -190,13 +177,36 @@ class Party extends Component<PartyProps, PartyState> {
   }
 }
 
-const mapStateToProps = (state: AppState): PartyProps => {
+const mapStateToProps = (state: AppState): StateProps => {
+  const exp: number =
+    convertPartyExp(state.exp.rawExp, {
+      membersFrom: state.party.membersFrom,
+      membersTo: state.party.membersTo,
+      penaltyFrom: state.party.penaltyFrom,
+      penaltyTo: state.party.penaltyTo
+    }) * boostCoefficient(state.boosts);
+
   return {
-    rawExp: state.exp.rawExp,
-    boostCoefficient: boostCoefficient(state.boosts)
+    exp: formatNumber(exp),
+    membersFrom: state.party.membersFrom,
+    penaltyFrom: state.party.penaltyFrom,
+    membersTo: state.party.membersTo,
+    penaltyTo: state.party.penaltyTo
   };
 };
 
-export const PartyContainer = connect<PartyProps, {}, {}, AppState>(
-  mapStateToProps
+const mapDispatchToProps = (dispatch: Dispatch<PartyActions>): DispatchProps =>
+  bindActionCreators(
+    {
+      changeMembersFrom,
+      changeMembersTo,
+      changePenaltyFrom,
+      changePenaltyTo
+    },
+    dispatch as Dispatch<AnyAction>
+  );
+
+export const PartyContainer = connect<StateProps, DispatchProps, {}, AppState>(
+  mapStateToProps,
+  mapDispatchToProps
 )(Party);
