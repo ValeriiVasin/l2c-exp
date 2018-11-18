@@ -9,7 +9,8 @@ import {
   changeMembersFrom,
   changePenaltyFrom,
   changePenaltyTo,
-  PartyActions
+  PartyActions,
+  setValue
 } from '../../actions';
 
 interface StateProps {
@@ -25,6 +26,7 @@ interface DispatchProps {
   changeMembersTo: typeof changeMembersTo;
   changePenaltyFrom: typeof changePenaltyFrom;
   changePenaltyTo: typeof changePenaltyTo;
+  useExp: typeof setValue;
 }
 
 interface PartyMembersSelectProps {
@@ -168,7 +170,18 @@ class Party extends Component<StateProps & DispatchProps> {
           </thead>
           <tbody>
             <tr>
-              <td colSpan={2}>{this.props.exp}</td>
+              <td>{this.props.exp}</td>
+              <td>
+                {this.props.exp && (
+                  <a
+                    href="javascript:void(0);"
+                    title="использовать опыт для рассчетов"
+                    onClick={() => this.props.useExp(this.props.exp)}
+                  >
+                    использовать
+                  </a>
+                )}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -201,7 +214,8 @@ const mapDispatchToProps = (dispatch: Dispatch<PartyActions>): DispatchProps =>
       changeMembersFrom,
       changeMembersTo,
       changePenaltyFrom,
-      changePenaltyTo
+      changePenaltyTo,
+      useExp: setValue
     },
     dispatch as Dispatch<AnyAction>
   );

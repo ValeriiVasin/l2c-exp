@@ -17,8 +17,6 @@ export enum ActionType {
   ChangePenaltyTo = 'ChangePenaltyTo'
 }
 
-
-
 export type AppActions =
   | AnyAction
   | ToggleAction
