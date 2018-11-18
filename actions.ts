@@ -1,4 +1,4 @@
-import { BoostId } from './constants';
+import { BoostId, TimeUnit } from './constants';
 import { Action, AnyAction } from 'redux';
 
 export interface AppAction<Payload, T = ActionType> extends Action<T> {
@@ -14,7 +14,14 @@ export enum ActionType {
   ChangeMembersFrom = 'ChangeMembersFrom',
   ChangePenaltyFrom = 'ChangePenaltyFrom',
   ChangeMembersTo = 'ChangeMembersTo',
-  ChangePenaltyTo = 'ChangePenaltyTo'
+  ChangePenaltyTo = 'ChangePenaltyTo',
+
+  SetLevelFrom = 'SetLevelFrom',
+  SetLevelTo = 'SetLevelTo',
+  SetSavedExp = 'SetSavedExp',
+  ToggleSavedExp = 'ToggleSavedExp',
+  SetTime = 'SetTime',
+  SetTimeUnit = 'SetTimeUnit'
 }
 
 export type AppActions =
@@ -22,7 +29,8 @@ export type AppActions =
   | ToggleAction
   | SetValueAction
   | ToggleRawExpLockAction
-  | PartyActions;
+  | PartyActions
+  | LevelingActions;
 
 type ToggleAction = AppAction<
   { id: BoostId; value: boolean },
@@ -90,3 +98,50 @@ export type PartyActions =
   | ChangeMembersToActon
   | ChangePenaltyFromActon
   | ChangePenaltyToActon;
+
+type SetLevelFromAction = AppAction<{ level: number }, ActionType.SetLevelFrom>;
+type SetLevelToAction = AppAction<{ level: number }, ActionType.SetLevelTo>;
+type SetSavedExpAction = AppAction<{ exp: number }, ActionType.SetSavedExp>;
+type ToggleSavedExpAction = AppAction<
+  { value: boolean },
+  ActionType.ToggleSavedExp
+>;
+type SetTimeAction = AppAction<{ time: number }, ActionType.SetTime>;
+type SetTimeUnitAction = AppAction<{ unit: TimeUnit }, ActionType.SetTimeUnit>;
+export type LevelingActions =
+  | SetLevelFromAction
+  | SetLevelToAction
+  | SetSavedExpAction
+  | ToggleSavedExpAction
+  | SetTimeAction
+  | SetTimeUnitAction;
+
+export const setLevelFrom = (level: number): SetLevelFromAction => ({
+  type: ActionType.SetLevelFrom,
+  payload: { level }
+});
+
+export const setLevelTo = (level: number): SetLevelToAction => ({
+  type: ActionType.SetLevelTo,
+  payload: { level }
+});
+
+export const setSavedExp = (exp: number): SetSavedExpAction => ({
+  type: ActionType.SetSavedExp,
+  payload: { exp }
+});
+
+export const toggleSavedExp = (value: boolean): ToggleSavedExpAction => ({
+  type: ActionType.ToggleSavedExp,
+  payload: { value }
+});
+
+export const setTime = (time: number): SetTimeAction => ({
+  type: ActionType.SetTime,
+  payload: { time }
+});
+
+export const setTimeUnit = (unit: TimeUnit): SetTimeUnitAction => ({
+  type: ActionType.SetTimeUnit,
+  payload: { unit }
+});

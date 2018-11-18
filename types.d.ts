@@ -11,10 +11,3 @@ interface PartyState {
   membersTo: number;
   penaltyTo: number;
 }
-
-interface ExpState {
-  value: string;
-  exp: number;
-  rawExp: number;
-  rawExpLocked: boolean;
-}

@@ -1,7 +1,12 @@
-import { AppState, BoostId } from './constants';
+import { AppState, BoostId, LevelingState, TimeUnit } from './constants';
 
 import { Reducer } from 'redux';
-import { ActionType, AppActions, PartyActions } from './actions';
+import {
+  ActionType,
+  AppActions,
+  PartyActions,
+  LevelingActions
+} from './actions';
 import { addBoost, toNumber, boostCoefficient } from './helpers';
 
 const DEFAULT_PARTY_STATE: PartyState = {
@@ -9,6 +14,15 @@ const DEFAULT_PARTY_STATE: PartyState = {
   membersTo: 2,
   penaltyFrom: 0,
   penaltyTo: 0
+};
+
+const DEFAULT_LEVELING_STATE: LevelingState = {
+  from: 0,
+  to: 0,
+  savedExp: 0,
+  savedExpChecked: false,
+  time: 1,
+  timeUnit: TimeUnit.Hours
 };
 
 const DEFAULT_STATE: AppState = {
@@ -19,7 +33,8 @@ const DEFAULT_STATE: AppState = {
     exp: 0,
     rawExp: 0,
     rawExpLocked: false
-  }
+  },
+  leveling: DEFAULT_LEVELING_STATE
 };
 
 const withExpUpdate = (state: AppState): AppState => {
@@ -39,7 +54,7 @@ const withExpUpdate = (state: AppState): AppState => {
 const partyReducer: Reducer<PartyState, PartyActions> = (
   state: PartyState = DEFAULT_PARTY_STATE,
   action: PartyActions
-) => {
+): PartyState => {
   switch (action.type) {
     case ActionType.ChangeMembersFrom:
       return {
@@ -57,6 +72,32 @@ const partyReducer: Reducer<PartyState, PartyActions> = (
       };
     case ActionType.ChangePenaltyTo:
       return { ...state, penaltyTo: action.payload.penalty };
+  }
+
+  return state;
+};
+
+const levelingReducer: Reducer<LevelingState, LevelingActions> = (
+  state: LevelingState = DEFAULT_LEVELING_STATE,
+  action: LevelingActions
+): LevelingState => {
+  switch (action.type) {
+    case ActionType.SetLevelFrom:
+      return { ...state, from: action.payload.level };
+    case ActionType.SetLevelTo:
+      return { ...state, to: action.payload.level };
+    case ActionType.SetSavedExp:
+      return { ...state, savedExp: action.payload.exp };
+    case ActionType.ToggleSavedExp:
+      return {
+        ...state,
+        savedExpChecked: action.payload.value,
+        savedExp: action.payload.value ? state.savedExp : 0
+      };
+    case ActionType.SetTime:
+      return { ...state, time: action.payload.time };
+    case ActionType.SetTimeUnit:
+      return { ...state, timeUnit: action.payload.unit };
   }
 
   return state;
@@ -115,6 +156,16 @@ export const root: Reducer<AppState, AppActions> = (
       return {
         ...state,
         party: partyReducer(state.party, action as PartyActions)
+      };
+    case ActionType.SetLevelFrom:
+    case ActionType.SetLevelTo:
+    case ActionType.SetSavedExp:
+    case ActionType.ToggleSavedExp:
+    case ActionType.SetTime:
+    case ActionType.SetTimeUnit:
+      return {
+        ...state,
+        leveling: levelingReducer(state.leveling, action as LevelingActions)
       };
   }
   return state;

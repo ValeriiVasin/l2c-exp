@@ -1,17 +1,13 @@
 import React, { Component, ChangeEvent } from 'react';
-import { toNumber, formatNumber } from '../../helpers';
+import { formatNumber } from '../../helpers';
 import { formatTime } from './helpers';
 import { InputNumber } from '../input-number/input-number';
 import styles from './time.css';
+import { TimeUnit } from '../../constants';
 
 interface TimeProps {
   expNeeded: number;
   expGetting: number;
-}
-
-enum TimeUnit {
-  Hours = 'hours',
-  Minutes = 'minutes'
 }
 
 interface TimeState {

@@ -69,4 +69,19 @@ export interface AppState {
   };
 
   party: PartyState;
+  leveling: LevelingState;
+}
+
+export enum TimeUnit {
+  Hours = 'hours',
+  Minutes = 'minutes'
+}
+
+export interface LevelingState {
+  from: number;
+  to: number;
+  savedExp: number;
+  savedExpChecked: boolean;
+  time: number;
+  timeUnit: TimeUnit;
 }
