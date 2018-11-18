@@ -2,6 +2,7 @@ import React, { Component, ChangeEvent } from 'react';
 import { toNumber, formatNumber } from '../../helpers';
 import { formatTime } from './helpers';
 import { InputNumber } from '../input-number/input-number';
+import styles from './time.css';
 
 interface TimeProps {
   expNeeded: number;
@@ -57,7 +58,7 @@ export class Time extends Component<TimeProps, TimeState> {
 
   render() {
     return (
-      <div style={{ marginTop: 20 }}>
+      <div className={styles.root}>
         <legend>Опыт был замерян за:</legend>
         <InputNumber
           size={4}

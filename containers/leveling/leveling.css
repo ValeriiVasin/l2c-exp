@@ -1,0 +1,31 @@
+.main {
+  margin-top: 16px;
+}
+
+.inputs {
+}
+
+.exp {
+  font-weight: 600;
+  margin-top: 16px;
+}
+
+.scrolls {
+  margin-top: 16px;
+}
+
+.scrollsContent {
+}
+
+.scrollsCheckbox {
+  margin-top: 16px;
+}
+
+.scrollsInput {
+  margin-top: 16px;
+}
+
+.scrollsExp {
+  font-weight: 600;
+  margin-top: 16px;
+}

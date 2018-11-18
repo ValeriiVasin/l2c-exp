@@ -5,6 +5,7 @@ import { AppState } from '../../constants';
 import { connect } from 'react-redux';
 import { Time } from './time';
 import { InputNumber } from '../input-number/input-number';
+import styles from './leveling.css';
 
 interface LevelingState {
   from: number;
@@ -58,11 +59,7 @@ export class Leveling extends Component<LevelingProps, LevelingState> {
       return;
     }
 
-    return (
-      <p>
-        <b>{formatNumber(neededExp)} EXP</b>
-      </p>
-    );
+    return `${formatNumber(neededExp)} EXP`;
   };
 
   renderTime = () => {
@@ -93,42 +90,55 @@ export class Leveling extends Component<LevelingProps, LevelingState> {
       <form className="pure-form">
         <legend>Прокачка уровня</legend>
 
-        <InputNumber
-          size={5}
-          placeholder="от"
-          onChange={from => this.setState({ from })}
-        />
+        <div className={styles.main}>
+          <div className={styles.inputs}>
+            <InputNumber
+              size={5}
+              placeholder="от"
+              onChange={from => this.setState({ from })}
+            />
 
-        {' - '}
+            {' - '}
 
-        <InputNumber
-          size={5}
-          placeholder="до"
-          onChange={to => this.setState({ to })}
-        />
+            <InputNumber
+              size={5}
+              placeholder="до"
+              onChange={to => this.setState({ to })}
+            />
+          </div>
 
-        {this.renderExp()}
+          <div className={styles.exp}>{this.renderExp()}</div>
+        </div>
 
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={this.state.savedExpChecked}
-              onChange={this.onSavedExpCheckboxChange}
-            />{' '}
-            имеющийся эксп (свитки и т.п.)
-          </label>
+        <div className={styles.scrolls}>
+          <div className={styles.scrollsCheckbox}>
+            <label>
+              <input
+                type="checkbox"
+                checked={this.state.savedExpChecked}
+                onChange={this.onSavedExpCheckboxChange}
+              />{' '}
+              имеющийся эксп (свитки и т.п.)
+            </label>
+          </div>
+
           {this.state.savedExpChecked && (
-            <div>
-              <InputNumber
-                onChange={savedExp => this.setState({ savedExp })}
-                autoFocus
-              />
-              <span className="pure-form-message">Например, 37kk</span>
-              {this.renderExp({ scrolls: true })}
+            <div className={styles.scrollsContent}>
+              <div className={styles.scrollsInput}>
+                <InputNumber
+                  onChange={savedExp => this.setState({ savedExp })}
+                  autoFocus
+                />
+                <span className="pure-form-message">Например, 37kk</span>
+              </div>
+
+              <div className={styles.scrollsExp}>
+                {this.renderExp({ scrolls: true })}
+              </div>
             </div>
           )}
         </div>
+
         {this.renderTime()}
       </form>
     );
