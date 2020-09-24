@@ -1,17 +1,17 @@
-import React, { SFC, Component, ChangeEvent } from 'react';
-import { AppState } from '../../constants';
-import { boostCoefficient, formatNumber } from '../../helpers';
+import React, { Component, SFC } from 'react';
 import { connect } from 'react-redux';
-import { convertPartyExp } from './helpers';
-import { bindActionCreators, Dispatch, AnyAction } from 'redux';
+import { AnyAction, bindActionCreators, Dispatch } from 'redux';
 import {
-  changeMembersTo,
   changeMembersFrom,
+  changeMembersTo,
   changePenaltyFrom,
   changePenaltyTo,
   PartyActions,
-  setValue
+  setValue,
 } from '../../actions';
+import { AppState } from '../../constants';
+import { boostCoefficient, formatNumber } from '../../helpers';
+import { convertPartyExp } from './helpers';
 
 interface StateProps {
   exp: string;
@@ -36,11 +36,11 @@ interface PartyMembersSelectProps {
 
 const PartyMembersSelect: SFC<PartyMembersSelectProps> = ({
   members,
-  onChange
+  onChange,
 }) => (
   <select
     value={members}
-    onChange={event => onChange(Number(event.target.value))}
+    onChange={(event) => onChange(Number(event.target.value))}
   >
     <option value="1">1 игрок</option>
     <option value="2">2 игрока</option>
@@ -62,11 +62,11 @@ interface PartyPenaltySelectProps {
 const PartyPenaltySelect: SFC<PartyPenaltySelectProps> = ({
   penalty,
   disabled,
-  onChange
+  onChange,
 }) => (
   <select
     value={penalty}
-    onChange={event => onChange(Number(event.target.value))}
+    onChange={(event) => onChange(Number(event.target.value))}
     disabled={disabled}
   >
     <option value="0">нет</option>
@@ -150,7 +150,7 @@ class Party extends Component<StateProps & DispatchProps> {
               <td>
                 <PartyMembersSelect
                   members={this.props.membersTo}
-                  onChange={members => this.onMembersToChange(members)}
+                  onChange={(members) => this.onMembersToChange(members)}
                 />
               </td>
               <td>
@@ -173,13 +173,12 @@ class Party extends Component<StateProps & DispatchProps> {
               <td>{this.props.exp}</td>
               <td>
                 {this.props.exp && (
-                  <a
-                    href="javascript:void(0);"
+                  <button
                     title="использовать опыт для рассчетов"
                     onClick={() => this.props.useExp(this.props.exp)}
                   >
                     использовать
-                  </a>
+                  </button>
                 )}
               </td>
             </tr>
@@ -196,7 +195,7 @@ const mapStateToProps = (state: AppState): StateProps => {
       membersFrom: state.party.membersFrom,
       membersTo: state.party.membersTo,
       penaltyFrom: state.party.penaltyFrom,
-      penaltyTo: state.party.penaltyTo
+      penaltyTo: state.party.penaltyTo,
     }) * boostCoefficient(state.boosts);
 
   return {
@@ -204,7 +203,7 @@ const mapStateToProps = (state: AppState): StateProps => {
     membersFrom: state.party.membersFrom,
     penaltyFrom: state.party.penaltyFrom,
     membersTo: state.party.membersTo,
-    penaltyTo: state.party.penaltyTo
+    penaltyTo: state.party.penaltyTo,
   };
 };
 
@@ -215,7 +214,7 @@ const mapDispatchToProps = (dispatch: Dispatch<PartyActions>): DispatchProps =>
       changeMembersTo,
       changePenaltyFrom,
       changePenaltyTo,
-      useExp: setValue
+      useExp: setValue,
     },
     dispatch as Dispatch<AnyAction>
   );
