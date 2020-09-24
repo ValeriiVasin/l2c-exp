@@ -1,21 +1,21 @@
-import React, { Component, ChangeEvent } from 'react';
-import { formatNumber } from '../../helpers';
-import { getExp } from './helpers';
-import { AppState, TimeUnit } from '../../constants';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Time } from './time';
-import { InputNumber } from '../input-number/input-number';
-import styles from './leveling.css';
+import { AnyAction, bindActionCreators, Dispatch } from 'redux';
 import {
+  LevelingActions,
   setLevelFrom,
   setLevelTo,
   setSavedExp,
-  toggleSavedExp,
   setTime,
   setTimeUnit,
-  LevelingActions
+  toggleSavedExp,
 } from '../../actions';
-import { bindActionCreators, AnyAction, Dispatch } from 'redux';
+import { AppState, TimeUnit } from '../../constants';
+import { formatNumber } from '../../helpers';
+import { InputNumber } from '../input-number/input-number';
+import { getExp } from './helpers';
+import styles from './leveling.css';
+import { Time } from './time';
 
 interface StateProps {
   exp: number;
@@ -36,7 +36,7 @@ interface DispatchProps {
   setTimeUnit: typeof setTimeUnit;
 }
 
-const MAX_LEVEL = 85;
+const MAX_LEVEL = 90;
 
 export class Leveling extends Component<StateProps & DispatchProps> {
   getNeededExp = (
@@ -162,7 +162,7 @@ const mapStateToProps = (state: AppState): StateProps => {
     savedExp: state.leveling.savedExp,
     savedExpChecked: state.leveling.savedExpChecked,
     time: state.leveling.time,
-    timeUnit: state.leveling.timeUnit
+    timeUnit: state.leveling.timeUnit,
   };
 };
 
@@ -176,7 +176,7 @@ const mapDispatchToProps = (
       setSavedExp,
       toggleSavedExp,
       setTime,
-      setTimeUnit
+      setTimeUnit,
     },
     dispatch as Dispatch<AnyAction>
   );
