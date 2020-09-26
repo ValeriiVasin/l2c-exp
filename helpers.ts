@@ -1,5 +1,3 @@
-jest.mock('./boost');
-
 import { byId } from './boost';
 import { BoostId } from './constants';
 

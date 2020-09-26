@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "check-types": "tsc --noEmit",
     "start": "parcel index.html",
     "build": "parcel build index.html",
     "test": "jest"

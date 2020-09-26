@@ -1,7 +1,7 @@
-import { createStore } from 'redux';
-import { root } from './reducers';
 import LZ from 'lz-string';
+import { createStore } from 'redux';
 import { AppState } from './constants';
+import { root } from './reducers';
 
 export const store = createStore(
   root,
@@ -21,8 +21,8 @@ function load(state: AppState): AppState {
   try {
     return {
       ...state,
-      ...(JSON.parse(LZ.decompressFromEncodedURIComponent(hash))
-        .state as AppState)
+      ...(JSON.parse(LZ.decompressFromEncodedURIComponent(hash) ?? '')
+        .state as AppState),
     };
   } catch {
     return state;
