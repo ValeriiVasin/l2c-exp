@@ -4,7 +4,7 @@ import { BoostId } from './constants';
 export const addBoost = (ids: BoostId[], id: BoostId): BoostId[] => {
   const group = byId[id].group;
 
-  return [...ids.filter(id => byId[id].group !== group), id];
+  return [...ids.filter((id) => byId[id].group !== group), id];
 };
 
 export const toNumber = (value: string): number => {
@@ -16,12 +16,7 @@ export const toNumber = (value: string): number => {
 
   return (
     multiplier *
-    Number(
-      value
-        .replace(/\s/g, '')
-        .replace(/,/g, '.')
-        .replace(/k/g, '')
-    )
+    Number(value.replace(/\s/g, '').replace(/,/g, '.').replace(/k/g, ''))
   );
 };
 

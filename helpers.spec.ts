@@ -1,23 +1,25 @@
+jest.mock('./images');
+
+import { BoostId } from './constants';
 import {
   addBoost,
-  toNumber,
-  formatNumber,
   boostCoefficient,
-  boostPercentage
+  boostPercentage,
+  formatNumber,
+  toNumber,
 } from './helpers';
-import { BoostId } from './constants';
 
 describe('add boost', () => {
   it('different groups', () => {
     expect(addBoost([BoostId.ClanFortuneOne], BoostId.Ragu)).toEqual([
       BoostId.ClanFortuneOne,
-      BoostId.Ragu
+      BoostId.Ragu,
     ]);
   });
 
   it('same group', () => {
     expect(addBoost([BoostId.ClanFortuneOne], BoostId.ClanFortuneTwo)).toEqual([
-      BoostId.ClanFortuneTwo
+      BoostId.ClanFortuneTwo,
     ]);
   });
 });
